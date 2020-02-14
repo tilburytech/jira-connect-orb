@@ -5,6 +5,7 @@ version: 2.1
 orbs:
   jira: circleci/jira@dev:alpha
   orb-tools: circleci/orb-tools@9.0
+  circleci-cli: circleci/circleci-cli@0.1.7
 
 # Pipeline parameters
 parameters:
@@ -26,9 +27,10 @@ jobs:
   #
   integration-test-1:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/base:2020.02
     steps:
       - checkout
+      - circleci-cli/install
       - run:
           name: Install BATS and YQ
           command: |
@@ -37,7 +39,7 @@ jobs:
             echo
             echo "BATS installed"
             echo
-            curl -L https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64 -o yq
+            curl -L https://github.com/mikefarah/yq/releases/download/2.1.1/yq_linux_amd64 -o yq
             chmod a+x yq
             sudo mv yq /usr/local/bin/
             echo
@@ -105,6 +107,7 @@ workflows:
           orb-name: circleci/jira
           context: orb-publishing
           add-pr-comment: true
+          pr-number-sed-expression: 's/.*(#\([0-9]*\)).*/\1/p'
           bot-token-variable: GHI_TOKEN
           bot-user: cpe-bot
           fail-if-semver-not-indicated: true
