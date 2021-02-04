@@ -48,7 +48,7 @@ jobs:
       - run:
           name: Test against published dev version using BATS
           command: |
-            export BATS_IMPORT_DEV_ORB="circleci/jira@dev:${CIRCLE_SHA1:0:7}"
+            export BATS_IMPORT_DEV_ORB="tilburytech/jira@dev:${CIRCLE_SHA1:0:7}"
             bats tests
       - store_artifacts:
           path: /tmp
@@ -72,7 +72,7 @@ workflows:
       # store CIRCLE_TOKEN as a project env var or Contexts resource
       # if using Contexts, add your context below
       - orb-tools/publish-dev:
-          orb-name: circleci/jira
+          orb-name: tilburytech/jira
           context: orb-publishing
           requires:
             - orb-tools/pack
@@ -107,12 +107,12 @@ workflows:
       # be skipped.
       # e.g. [semver:patch] will cause a patch version to be published.
       - orb-tools/dev-promote-prod-from-commit-subject:
-          orb-name: circleci/jira
+          orb-name: tilburytech/jira
           context: orb-publishing
           add-pr-comment: true
           pr-number-sed-expression: 's/.*(#\([0-9]*\)).*/\1/p'
-          bot-token-variable: GHI_TOKEN
-          bot-user: cpe-bot
+          bot-token-variable: GITHUB_TOKEN
+          bot-user: ctbuilduser
           fail-if-semver-not-indicated: true
           publish-version-tag: true
           ssh-fingerprints: 8a:6b:e8:d5:90:56:3e:70:8d:a5:4e:74:50:07:8f:8e
