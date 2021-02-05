@@ -12,6 +12,11 @@ parameters:
     description: For deployments. Indicates the name of target environment. Default is the CircleCI Job Name.
     default: "${CIRCLE_JOB}"
     type: string
+  release_type:
+    description: Tells us which type of release we're doing, and so how to get the correct all_commit_details
+    default: "incremental"
+    type: enum
+    enum: ["incremental", "nightly", "release"]
   environment_type:
     description: Indicates the category of target environment as defined by Atlassian
     type: enum
@@ -36,6 +41,12 @@ parameters:
 
 steps:
   - jq/install:
+      when: always
+
+  - run:
+      name: Install CT Release tools
+      command: |
+        git clone git@github.com:tilburytech/release.git /usr/local/bin
       when: always
 
   - run:
@@ -99,11 +110,33 @@ steps:
           fi
         }
 
-        parse_jira_key_array () {
+        get_incremental_tickets() {
           # must save as ISSUE_KEYS='["CC-4"]'
           fetch https://circleci.com/api/v1.1/project/${VCS_TYPE}/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM} /tmp/job_info.json
           # see https://jqplay.org/s/TNq7c5ctot
-          ISSUE_KEYS=$(cat /tmp/job_info.json | jq '[.all_commit_details[].subject | scan("(<<parameters.issue_regexp>>)")   | .[] ] + [.all_commit_details[].branch | scan("(<<parameters.issue_regexp>>)")   | .[] ] + [if .branch then .branch else "" end | scan("(<<parameters.issue_regexp>>)")  | . [] ] + [if <<parameters.scan_commit_body>> then .all_commit_details[].body else "" end | scan("(<<parameters.issue_regexp>>)")   | .[] ]')
+          cat /tmp/job_info.json | jq '[.all_commit_details[].subject | scan("(<<parameters.issue_regexp>>)")   | .[] ] + [.all_commit_details[].branch | scan("(<<parameters.issue_regexp>>)")   | .[] ] + [if .branch then .branch else "" end | scan("(<<parameters.issue_regexp>>)")  | . [] ] + [if <<parameters.scan_commit_body>> then .all_commit_details[].body else "" end | scan("(<<parameters.issue_regexp>>)")   | .[] ]')
+        }
+
+        get_nightly_tickets () {
+          release tickets nightly | jq --raw-input --slurp 'split("\n") | map(select(. != ""))'
+        }
+
+        get_release_tickets () {
+          release tickets | jq --raw-input --slurp 'split("\n") | map(select(. != ""))'
+        }
+
+        parse_jira_key_array () {
+          case "<<parameters.release_type>>" in
+            nightly)
+              ISSUE_KEYS=$(get_nightly_tickets)
+              ;;
+            release)
+              ISSUE_KEYS=$(get_release_tickets)
+              ;;
+            *)
+              ISSUE_KEYS=$(get_incremental_tickets);;
+          esac
+          
           if [ -z "$ISSUE_KEYS" ]; then
             # No issue keys found.
             echo "No issue keys found. This build does not contain a match for a Jira Issue. Please add your issue ID to the commit message or within the branch name."
