@@ -44,8 +44,8 @@ function setup {
 
 @test "3: Execution of Notify Script Works with env vars" {
   # and the infomprovied by a CCI container
-  export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
-  export CIRCLE_BUILD_NUM="317"
+  export CIRCLE_WORKFLOW_ID="1ed24ad4-af28-448c-b837-eaa162fa1426"
+  export CIRCLE_BUILD_NUM="50"
   export CIRCLE_JOB="lint"
   export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="b14c9b6"
@@ -73,8 +73,8 @@ function setup {
 @test "4: Workflow Status of Fail will override passing job" {
 
   # and the improvised by a CCI container
-  export CIRCLE_WORKFLOW_ID="5ddcc736-89ec-477b-bbd6-ec4cbbf5f211"
-  export CIRCLE_BUILD_NUM="317"
+  export CIRCLE_WORKFLOW_ID="1ed24ad4-af28-448c-b837-eaa162fa1426"
+  export CIRCLE_BUILD_NUM="50"
   export CIRCLE_JOB="passing"
   export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="b14c9b6"
@@ -115,8 +115,8 @@ function setup {
 
 @test "6: Execution of Notify Script Works for Deployments" {
   # and the infomprovied by a CCI container
-  export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
-  export CIRCLE_BUILD_NUM="317"
+  export CIRCLE_WORKFLOW_ID="1ed24ad4-af28-448c-b837-eaa162fa1426"
+  export CIRCLE_BUILD_NUM="50"
   export CIRCLE_JOB="lint"
   export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="b14c9b6"
@@ -146,8 +146,8 @@ function setup {
 @test "7: Spec Test - Confirm ids and numbers and sequences per Jira api" {
  
   # and the infomprovied by a CCI container
-  export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
-  export CIRCLE_BUILD_NUM="317"
+  export CIRCLE_WORKFLOW_ID="1ed24ad4-af28-448c-b837-eaa162fa1426"
+  export CIRCLE_BUILD_NUM="50"
   export CIRCLE_JOB="passing"
   export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="b14c9b6"
@@ -177,8 +177,8 @@ function setup {
   #
   # now deployment
   #
-  export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
-  export CIRCLE_BUILD_NUM="317"
+  export CIRCLE_WORKFLOW_ID="1ed24ad4-af28-448c-b837-eaa162fa1426f"
+  export CIRCLE_BUILD_NUM="50"
   export CIRCLE_JOB="passing"
   export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="b14c9b6"
@@ -206,8 +206,8 @@ function setup {
 
 @test "8: Execution of Notify Script Works for Deployments with Service ID" {
   # and the infomprovied by a CCI container
-  export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
-  export CIRCLE_BUILD_NUM="317"
+  export CIRCLE_WORKFLOW_ID="1ed24ad4-af28-448c-b837-eaa162fa1426"
+  export CIRCLE_BUILD_NUM="50"
   export CIRCLE_JOB="lint"
   export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="b14c9b6"
@@ -237,8 +237,8 @@ function setup {
 
 @test "9: Execution of Notify Script Works for Deployments with INVALID Service ID" {
   # and the infomprovied by a CCI container
-  export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
-  export CIRCLE_BUILD_NUM="317"
+  export CIRCLE_WORKFLOW_ID="1ed24ad4-af28-448c-b837-eaa162fa1426"
+  export CIRCLE_BUILD_NUM="50"
   export CIRCLE_JOB="lint"
   export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="b14c9b6"
