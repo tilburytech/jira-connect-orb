@@ -25,7 +25,7 @@ function setup {
   assert_jq_match '.jobs | length' 1 #only 1 job
   assert_jq_match '.jobs["build"].steps | length' 6
   assert_jq_match '.jobs["build"].steps[0].run.command' 'echo "hello"'
-  assert_jq_match '.jobs["build"].steps[4].run.name' 'Update status in Atlassian Jira'
+  assert_jq_match '.jobs["build"].steps[5].run.name' 'Update status in Atlassian Jira'
 
 }
 
@@ -37,8 +37,8 @@ function setup {
   assert_jq_match '.jobs | length' 1 #only 1 job
   assert_jq_match '.jobs["build"].steps | length' 6
   assert_jq_match '.jobs["build"].steps[0].run.command' 'echo "hello"'
-  assert_jq_match '.jobs["build"].steps[4].run.name' 'Update status in Atlassian Jira'
-  assert_jq_contains '.jobs["build"].steps[4].run.command' '${MY_CIRCLE_TOKEN}'
+  assert_jq_match '.jobs["build"].steps[5].run.name' 'Update status in Atlassian Jira'
+  assert_jq_contains '.jobs["build"].steps[5].run.command' '${MY_CIRCLE_TOKEN}'
 }
 
 
@@ -47,11 +47,11 @@ function setup {
   export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
   export CIRCLE_BUILD_NUM="317"
   export CIRCLE_JOB="lint"
-  export CIRCLE_PROJECT_USERNAME="circleci-public"
+  export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="aef3425"
   export CIRCLE_PROJECT_REPONAME="jira-connect-orb"
-  export CIRCLE_REPOSITORY_URL="https://github.com/CircleCI-Public/jira-connect-orb"
-  export CIRCLE_COMPARE_URL="https://github.com/CircleCI-Public/jira-connect-orb"
+  export CIRCLE_REPOSITORY_URL="https://github.com/tilburytech/jira-connect-orb"
+  export CIRCLE_COMPARE_URL="https://github.com/tilburytech/jira-connect-orb"
   export CIRCLE_BUILD_URL="https://circleci.com/gh/project/build/23"
   export CIRCLE_BRANCH="master"
   echo 'export JIRA_BUILD_STATUS="successful"' >> /tmp/jira.status
@@ -76,11 +76,11 @@ function setup {
   export CIRCLE_WORKFLOW_ID="5ddcc736-89ec-477b-bbd6-ec4cbbf5f211"
   export CIRCLE_BUILD_NUM="317"
   export CIRCLE_JOB="passing"
-  export CIRCLE_PROJECT_USERNAME="circleci-public"
+  export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="aef3425"
   export CIRCLE_PROJECT_REPONAME="jira-connect-orb"
-  export CIRCLE_REPOSITORY_URL="https://github.com/CircleCI-Public/jira-connect-orb"
-  export CIRCLE_COMPARE_URL="https://github.com/CircleCI-Public/jira-connect-orb"
+  export CIRCLE_REPOSITORY_URL="https://github.com/tilburytech/jira-connect-orb"
+  export CIRCLE_COMPARE_URL="https://github.com/tilburytech/jira-connect-orb"
   export CIRCLE_BUILD_URL="https://circleci.com/gh/project/build/355"
   export CIRCLE_BRANCH="master"
   echo 'export JIRA_BUILD_STATUS="successful"' >> /tmp/jira.status
@@ -118,11 +118,11 @@ function setup {
   export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
   export CIRCLE_BUILD_NUM="317"
   export CIRCLE_JOB="lint"
-  export CIRCLE_PROJECT_USERNAME="circleci-public"
+  export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="aef3425"
   export CIRCLE_PROJECT_REPONAME="jira-connect-orb"
-  export CIRCLE_REPOSITORY_URL="https://github.com/CircleCI-Public/jira-connect-orb"
-  export CIRCLE_COMPARE_URL="https://github.com/CircleCI-Public/jira-connect-orb"
+  export CIRCLE_REPOSITORY_URL="https://github.com/tilburytech/jira-connect-orb"
+  export CIRCLE_COMPARE_URL="https://github.com/tilburytech/jira-connect-orb"
   export CIRCLE_BUILD_URL="https://circleci.com/gh/project/build/23"
   export CIRCLE_BRANCH="master"
   echo 'export JIRA_BUILD_STATUS="successful"' >> /tmp/jira.status
@@ -149,11 +149,11 @@ function setup {
   export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
   export CIRCLE_BUILD_NUM="317"
   export CIRCLE_JOB="passing"
-  export CIRCLE_PROJECT_USERNAME="circleci-public"
+  export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="aef3425"
   export CIRCLE_PROJECT_REPONAME="jira-connect-orb"
-  export CIRCLE_REPOSITORY_URL="https://github.com/CircleCI-Public/jira-connect-orb"
-  export CIRCLE_COMPARE_URL="https://github.com/CircleCI-Public/jira-connect-orb"
+  export CIRCLE_REPOSITORY_URL="https://github.com/tilburytech/jira-connect-orb"
+  export CIRCLE_COMPARE_URL="https://github.com/tilburytech/jira-connect-orb"
   export CIRCLE_BUILD_URL="https://circleci.com/gh/project/build/355"
   export CIRCLE_BRANCH="master"
   echo 'export JIRA_BUILD_STATUS="successful"' >> /tmp/jira.status
@@ -180,11 +180,11 @@ function setup {
   export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
   export CIRCLE_BUILD_NUM="317"
   export CIRCLE_JOB="passing"
-  export CIRCLE_PROJECT_USERNAME="circleci-public"
+  export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="aef3425"
   export CIRCLE_PROJECT_REPONAME="jira-connect-orb"
-  export CIRCLE_REPOSITORY_URL="https://github.com/CircleCI-Public/jira-connect-orb"
-  export CIRCLE_COMPARE_URL="https://github.com/CircleCI-Public/jira-connect-orb"
+  export CIRCLE_REPOSITORY_URL="https://github.com/tilburytech/jira-connect-orb"
+  export CIRCLE_COMPARE_URL="https://github.com/tilburytech/jira-connect-orb"
   export CIRCLE_BUILD_URL="https://circleci.com/gh/project/build/355"
   export CIRCLE_BRANCH="master"
   echo 'export JIRA_BUILD_STATUS="successful"' >> /tmp/jira.status
@@ -209,11 +209,11 @@ function setup {
   export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
   export CIRCLE_BUILD_NUM="317"
   export CIRCLE_JOB="lint"
-  export CIRCLE_PROJECT_USERNAME="circleci-public"
+  export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="aef3425"
   export CIRCLE_PROJECT_REPONAME="jira-connect-orb"
-  export CIRCLE_REPOSITORY_URL="https://github.com/CircleCI-Public/jira-connect-orb"
-  export CIRCLE_COMPARE_URL="https://github.com/CircleCI-Public/jira-connect-orb"
+  export CIRCLE_REPOSITORY_URL="https://github.com/tilburytech/jira-connect-orb"
+  export CIRCLE_COMPARE_URL="https://github.com/tilburytech/jira-connect-orb"
   export CIRCLE_BUILD_URL="https://circleci.com/gh/project/build/23"
   export CIRCLE_BRANCH="master"
   echo 'export JIRA_BUILD_STATUS="successful"' >> /tmp/jira.status
@@ -240,11 +240,11 @@ function setup {
   export CIRCLE_WORKFLOW_ID="ccfab95a-1ee6-4473-b4c0-d0992815d3af"
   export CIRCLE_BUILD_NUM="317"
   export CIRCLE_JOB="lint"
-  export CIRCLE_PROJECT_USERNAME="circleci-public"
+  export CIRCLE_PROJECT_USERNAME="tilburytech"
   export CIRCLE_SHA1="aef3425"
   export CIRCLE_PROJECT_REPONAME="jira-connect-orb"
-  export CIRCLE_REPOSITORY_URL="https://github.com/CircleCI-Public/jira-connect-orb"
-  export CIRCLE_COMPARE_URL="https://github.com/CircleCI-Public/jira-connect-orb"
+  export CIRCLE_REPOSITORY_URL="https://github.com/tilburytech/jira-connect-orb"
+  export CIRCLE_COMPARE_URL="https://github.com/tilburytech/jira-connect-orb"
   export CIRCLE_BUILD_URL="https://circleci.com/gh/project/build/23"
   export CIRCLE_BRANCH="master"
   echo 'export JIRA_BUILD_STATUS="successful"' >> /tmp/jira.status
