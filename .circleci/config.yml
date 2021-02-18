@@ -3,7 +3,7 @@ version: 2.1
 # add your orb below, to be used in integration tests (note: a @dev:alpha
 # release must exist.);
 orbs:
-  jira: circleci/jira@<<pipeline.parameters.dev-orb-version>>
+  jira: tilburytech/jira@<<pipeline.parameters.dev-orb-version>>
   orb-tools: circleci/orb-tools@9.0
   circleci-cli: circleci/circleci-cli@0.1
 
@@ -73,7 +73,7 @@ workflows:
       # if using Contexts, add your context below
       - orb-tools/publish-dev:
           orb-name: tilburytech/jira
-          context: orb-publishing
+          context: tools
           requires:
             - orb-tools/pack
 
@@ -81,7 +81,7 @@ workflows:
       # dev:${CIRCLE_SHA1:0:7} version of your orb
       - orb-tools/trigger-integration-tests-workflow:
           name: trigger-integration-dev
-          context: orb-publishing
+          context: tools
           requires:
             - orb-tools/publish-dev
 
@@ -98,7 +98,7 @@ workflows:
 
       # an example job
       - integration-test-1:
-          context: orb-publishing
+          context: tools
 
       # publish a semver version of the orb. relies on
       # the commit subject containing the text "[semver:patch|minor|major|skip]"
@@ -108,7 +108,7 @@ workflows:
       # e.g. [semver:patch] will cause a patch version to be published.
       - orb-tools/dev-promote-prod-from-commit-subject:
           orb-name: tilburytech/jira
-          context: orb-publishing
+          context: tools
           add-pr-comment: true
           pr-number-sed-expression: 's/.*(#\([0-9]*\)).*/\1/p'
           bot-token-variable: GITHUB_TOKEN
