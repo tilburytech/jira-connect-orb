@@ -203,3 +203,25 @@ function setup {
   assert_jq_match '.deployments[0].deploymentSequenceNumber' 21 /tmp/jira-status.json
   assert_jq_match '.deployments[0].pipeline.id' "${CIRCLE_PROJECT_REPONAME}" /tmp/jira-status.json
 }
+
+@test "8: Basic expansion for nightly deployments" {
+  # given
+  process_config_with tests/cases/deployment_nightly.yml
+
+  # when
+  assert_jq_match '.jobs | length' 1 #only 1 job
+  assert_jq_match '.jobs["build"].steps[0].run.command' 'echo "hello"'
+  assert_jq_match '.jobs["build"].steps[5].run.name' 'Update status in Atlassian Jira'
+  assert_jq_contains '.jobs["build"].steps[5].run.command' '-X POST "https://circleci.com/api/v1.1/project/${VCS_TYPE}/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/jira/deployment'
+}
+
+@test "8: Basic expansion for release deployments" {
+  # given
+  process_config_with tests/cases/deployment_release.yml
+
+  # when
+  assert_jq_match '.jobs | length' 1 #only 1 job
+  assert_jq_match '.jobs["build"].steps[0].run.command' 'echo "hello"'
+  assert_jq_match '.jobs["build"].steps[5].run.name' 'Update status in Atlassian Jira'
+  assert_jq_contains '.jobs["build"].steps[5].run.command' '-X POST "https://circleci.com/api/v1.1/project/${VCS_TYPE}/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/jira/deployment'
+}

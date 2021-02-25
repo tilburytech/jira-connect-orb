@@ -119,11 +119,11 @@ steps:
         }
 
         get_nightly_tickets () {
-          release tickets nightly | jq --raw-input --slurp 'split("\n") | map(select(. != ""))'
+          ~/bin/release.sh tickets nightly | jq --raw-input --slurp 'split("\n") | map(select(. != ""))'
         }
 
         get_release_tickets () {
-          release tickets | jq --raw-input --slurp 'split("\n") | map(select(. != ""))'
+          ~/bin/release.sh tickets | jq --raw-input --slurp 'split("\n") | map(select(. != ""))'
         }
 
         parse_jira_key_array () {
