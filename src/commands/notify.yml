@@ -47,6 +47,7 @@ steps:
       name: Install CT Release tools
       command: |
         git clone git@github.com:tilburytech/release.git ~/bin
+        chmod +x ~/bin/release.sh
       when: always
 
   - run:
