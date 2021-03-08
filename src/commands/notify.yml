@@ -46,6 +46,7 @@ steps:
   - run:
       name: Install CT Release tools
       command: |
+        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
         git clone git@github.com:tilburytech/release.git ~/bin
         chmod +x ~/bin/release.sh
       when: always
