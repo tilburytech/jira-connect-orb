@@ -3,6 +3,10 @@ parameters:
     description: The name of environment variable containing CircleCI API Token. Required for all projects.
     default: "CIRCLE_TOKEN"
     type: string
+  issue_keys:
+    description: Keys to mark as being in this build/release as a newline seperated string, specifying the tickets means the orb will use those tickets and not go looking for others
+    default: ""
+    type: "string"
   job_type:
     description: Indicates if job should be treated as build or deployment in Jira dev panel. Note that Deployments require additional details
     default: "build"
@@ -129,6 +133,11 @@ steps:
         }
 
         parse_jira_key_array () {
+          if [ -z "<<parameters.issue_keys>>" ]; then
+            ISSUEKEY="$(echo "<<parameters.issue_keys>>" | jq --raw-input --slurp 'split("\n") | map(select(. != ""))')"
+            return
+          end
+
           case "<<parameters.release_type>>" in
             nightly)
               ISSUE_KEYS="$(get_nightly_tickets)"
