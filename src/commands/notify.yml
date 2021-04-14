@@ -133,7 +133,7 @@ steps:
         }
 
         parse_jira_key_array () {
-          if [ -z "<<parameters.issue_keys>>" ]; then
+          if [ -n "<<parameters.issue_keys>>" ]; then
             ISSUE_KEYS="$(echo "<<parameters.issue_keys>>" | jq --raw-input --slurp 'split("\n") | map(select(. != ""))')"
             return
           fi

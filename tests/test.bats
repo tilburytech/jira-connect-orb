@@ -251,5 +251,5 @@ function setup {
   [[ "$status" == "0" ]]
 
   # and reports success
-  assert_jq_match '.acceptedBuilds | length' 2 /tmp/curl_response.txt # acc Deployments has one object
+  assert_jq_match '.acceptedDeployments | length' 1 /tmp/curl_response.txt # acc Deployments has two objects
 }
