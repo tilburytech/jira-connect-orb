@@ -134,9 +134,9 @@ steps:
 
         parse_jira_key_array () {
           if [ -z "<<parameters.issue_keys>>" ]; then
-            ISSUEKEY="$(echo "<<parameters.issue_keys>>" | jq --raw-input --slurp 'split("\n") | map(select(. != ""))')"
+            ISSUE_KEYS="$(echo "<<parameters.issue_keys>>" | jq --raw-input --slurp 'split("\n") | map(select(. != ""))')"
             return
-          end
+          fi
 
           case "<<parameters.release_type>>" in
             nightly)
