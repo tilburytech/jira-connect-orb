@@ -3,6 +3,10 @@ parameters:
     description: The name of environment variable containing CircleCI API Token. Required for all projects.
     default: "CIRCLE_TOKEN"
     type: string
+  issue_keys:
+    description: Keys to mark as being in this build/release as a newline seperated string, specifying the tickets means the orb will use those tickets and not go looking for others
+    default: ""
+    type: "string"
   job_type:
     description: Indicates if job should be treated as build or deployment in Jira dev panel. Note that Deployments require additional details
     default: "build"
@@ -46,6 +50,11 @@ steps:
   - run:
       name: Install CT Release tools
       command: |
+        if command -v jq >> /dev/null 2>&1; then
+          echo "release tools already installed"
+          exit 0
+        fi
+
         mkdir -p ~/.ssh
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
         git clone git@github.com:tilburytech/release.git ~/bin
@@ -129,6 +138,11 @@ steps:
         }
 
         parse_jira_key_array () {
+          if [ -n "<<parameters.issue_keys>>" ]; then
+            ISSUE_KEYS="$(echo "<<parameters.issue_keys>>" | jq --raw-input --slurp 'split("\n") | map(select(. != ""))')"
+            return
+          fi
+
           case "<<parameters.release_type>>" in
             nightly)
               ISSUE_KEYS="$(get_nightly_tickets)"

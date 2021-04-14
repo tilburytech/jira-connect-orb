@@ -225,3 +225,31 @@ function setup {
   assert_jq_match '.jobs["build"].steps[5].run.name' 'Update status in Atlassian Jira'
   assert_jq_contains '.jobs["build"].steps[5].run.command' '-X POST "https://circleci.com/api/v1.1/project/${VCS_TYPE}/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/jira/deployment'
 }
+
+@test "9: Execution of Notify Script Works when passed tickets" {
+  # and the infomprovied by a CCI container
+  export CIRCLE_WORKFLOW_ID="1ed24ad4-af28-448c-b837-eaa162fa1426"
+  export CIRCLE_BUILD_NUM="50"
+  export CIRCLE_JOB="lint"
+  export CIRCLE_PROJECT_USERNAME="tilburytech"
+  export CIRCLE_SHA1="b14c9b6"
+  export CIRCLE_PROJECT_REPONAME="jira-connect-orb"
+  export CIRCLE_REPOSITORY_URL="https://github.com/tilburytech/jira-connect-orb"
+  export CIRCLE_COMPARE_URL="https://github.com/tilburytech/jira-connect-orb"
+  export CIRCLE_BUILD_URL="https://circleci.com/gh/project/build/18"
+  export CIRCLE_BRANCH="master"
+  echo 'export JIRA_BUILD_STATUS="successful"' >> /tmp/jira.status
+  process_config_with tests/cases/tickets_as_param.yml
+
+  # when out command is called
+  jq -r '.jobs["build"].steps[5].run.command' $JSON_PROJECT_CONFIG > ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}.bash
+  
+  run bash ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}.bash
+  echo $output > ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}-builds.out
+
+  # then is passes
+  [[ "$status" == "0" ]]
+
+  # and reports success
+  assert_jq_match '.acceptedDeployments | length' 1 /tmp/curl_response.txt # acc Deployments has two objects
+}
