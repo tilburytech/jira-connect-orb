@@ -138,11 +138,8 @@ steps:
         }
 
         parse_jira_key_array () {
-<<<<<<< HEAD
+
           if [ -n "<<parameters.issue_keys>>" ]; then
-=======
-          if [ -z "<<parameters.issue_keys>>" ]; then
->>>>>>> 842f112 (Add test for passing tickets as a parameter)
             ISSUE_KEYS="$(echo "<<parameters.issue_keys>>" | jq --raw-input --slurp 'split("\n") | map(select(. != ""))')"
             return
           fi

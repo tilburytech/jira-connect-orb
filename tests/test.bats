@@ -251,9 +251,4 @@ function setup {
   [[ "$status" == "0" ]]
 
   # and reports success
-<<<<<<< HEAD
-  assert_jq_match '.acceptedDeployments | length' 1 /tmp/curl_response.txt # acc Deployments has two objects
-=======
   assert_jq_match '.acceptedBuilds | length' 2 /tmp/curl_response.txt # acc Deployments has one object
->>>>>>> 842f112 (Add test for passing tickets as a parameter)
-}
