@@ -50,6 +50,11 @@ steps:
   - run:
       name: Install CT Release tools
       command: |
+        if command -v jq >> /dev/null 2>&1; then
+          echo "release tools already installed"
+          exit 0
+        fi
+
         mkdir -p ~/.ssh
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
         git clone git@github.com:tilburytech/release.git ~/bin
