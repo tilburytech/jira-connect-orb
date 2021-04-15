@@ -238,7 +238,11 @@ function setup {
   export CIRCLE_COMPARE_URL="https://github.com/tilburytech/jira-connect-orb"
   export CIRCLE_BUILD_URL="https://circleci.com/gh/project/build/18"
   export CIRCLE_BRANCH="master"
+
+  mkdir -p /tmp/wismf
   echo 'export JIRA_BUILD_STATUS="successful"' >> /tmp/jira.status
+  echo "PLAT-1\nPLAT-2" > /tmp/wismf/tickets.txt
+
   process_config_with tests/cases/tickets_as_param.yml
 
   # when out command is called
@@ -251,4 +255,5 @@ function setup {
   [[ "$status" == "0" ]]
 
   # and reports success
-  assert_jq_match '.acceptedBuilds | length' 2 /tmp/curl_response.txt # acc Deployments has one object
+  assert_jq_match '.acceptedDeployments | length' 1 /tmp/curl_response.txt # acc Deployments has one object
+}

@@ -3,8 +3,8 @@ parameters:
     description: The name of environment variable containing CircleCI API Token. Required for all projects.
     default: "CIRCLE_TOKEN"
     type: string
-  issue_keys:
-    description: Keys to mark as being in this build/release as a newline seperated string, specifying the tickets means the orb will use those tickets and not go looking for others
+  issue_keys_filename:
+    description: A file containing a newline seperates list of keys from a previous step, specifying prevents ticket discovery
     default: ""
     type: "string"
   job_type:
@@ -50,7 +50,7 @@ steps:
   - run:
       name: Install CT Release tools
       command: |
-        if command -v jq >> /dev/null 2>&1; then
+        if command -v release >> /dev/null 2>&1; then
           echo "release tools already installed"
           exit 0
         fi
@@ -138,9 +138,8 @@ steps:
         }
 
         parse_jira_key_array () {
-
-          if [ -n "<<parameters.issue_keys>>" ]; then
-            ISSUE_KEYS="$(echo "<<parameters.issue_keys>>" | jq --raw-input --slurp 'split("\n") | map(select(. != ""))')"
+          if [ -n "<<parameters.issue_keys_filename>>" ]; then
+            ISSUE_KEYS="$(jq --raw-input --slurp 'split("\n") | map(select(. != ""))' <<parameters.issue_keys_filename>>)"
             return
           fi
 
