@@ -241,7 +241,8 @@ function setup {
 
   mkdir -p /tmp/wismf
   echo 'export JIRA_BUILD_STATUS="successful"' >> /tmp/jira.status
-  echo "PLAT-1\nPLAT-2" > /tmp/wismf/tickets.txt
+  echo "PLAT-1" >> /tmp/wismf/tickets.txt
+  echo "PLAT-2" >> /tmp/wismf/tickets.txt
 
   process_config_with tests/cases/tickets_as_param.yml
 
@@ -254,6 +255,9 @@ function setup {
   # then is passes
   [[ "$status" == "0" ]]
 
+  assert_jq_match '.deployments[0].associations[] | select(.associationType == "issueKeys") | .values | length' 2 /tmp/jira-status.json
+  assert_jq_match '.deployments[0].associations[] | select(.associationType == "issueKeys") | .values[] | select(. == "PLAT-1")' "PLAT-1" /tmp/jira-status.json
+  assert_jq_match '.deployments[0].associations[] | select(.associationType == "issueKeys") | .values[] | select(. == "PLAT-2")' "PLAT-2" /tmp/jira-status.json
   # and reports success
   assert_jq_match '.acceptedDeployments | length' 1 /tmp/curl_response.txt # acc Deployments has one object
 }
