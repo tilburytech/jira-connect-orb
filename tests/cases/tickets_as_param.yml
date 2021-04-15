@@ -9,4 +9,4 @@ jobs:
           job_type: deployment
           environment: non-prod
           state_path:  /tmp/jira.status
-          issue_keys: "PLAT-1\nPLAT-2"
+          issue_keys_filename: /tmp/wismf/tickets.txt
