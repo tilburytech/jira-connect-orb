@@ -88,7 +88,7 @@ function setup {
 
 
   # when out command is called
-  jq -r '.jobs["build"].steps[5].run.command' $JSON_PROJECT_CONFIG > ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}.bash
+  jq -r '.jobs["build"].steps[4].run.command' $JSON_PROJECT_CONFIG > ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}.bash
   run bash ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}.bash
   
   # then is passes
@@ -161,7 +161,7 @@ function setup {
 
 
   # when out command is called
-  jq -r '.jobs["build"].steps[5].run.command' $JSON_PROJECT_CONFIG > ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}-builds.bash
+  jq -r '.jobs["build"].steps[4].run.command' $JSON_PROJECT_CONFIG > ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}-builds.bash
   run bash ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}-builds.bash
   echo $output > ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}-builds.out
   
@@ -225,7 +225,7 @@ function setup {
   process_config_with tests/cases/tickets_as_param.yml
 
   # when out command is called
-  jq -r '.jobs["build"].steps[5].run.command' $JSON_PROJECT_CONFIG > ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}.bash
+  jq -r '.jobs["build"].steps[4].run.command' $JSON_PROJECT_CONFIG > ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}.bash
   
   run bash ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}.bash
   echo $output > ${BATS_TMPDIR}/script-${BATS_TEST_NUMBER}-builds.out
